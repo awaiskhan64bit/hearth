@@ -1,6 +1,6 @@
 # Hearth
 
-*A private AI that lives in your browser.*
+*A private AI that lives in your browser.* — **Live: https://hearth-llm.vercel.app**
 
 Hearth is a chat app that runs **real open-source language models on your own device** — no server GPU, no API key, nothing you type leaves the browser. It's powered by [WebLLM](https://github.com/mlc-ai/web-llm) on **WebGPU**, with an optional **Cloud** mode that streams from any OpenAI-compatible API (Groq, OpenAI, OpenRouter, Together…).
 
