@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Nova Chat — private AI that runs in your browser</title>
+  <meta name="description" content="Chat with real open-source LLMs (Llama, Qwen, Gemma, Phi) running 100% in your browser via WebGPU." />
+  <meta name="theme-color" content="#0b0d12" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar" aria-label="Conversations">
+      <div class="sidebar-head">
+        <div class="brand"><span class="logo">✦</span> Nova Chat</div>
+        <button class="icon-btn" id="closeSidebar" aria-label="Close sidebar">✕</button>
+      </div>
+      <button class="new-chat" id="newChat"><span>＋</span> New chat</button>
+      <nav class="chat-list" id="chatList"></nav>
+      <div class="sidebar-foot">
+        <button class="ghost" id="openSettings">⚙️&nbsp; Settings</button>
+        <button class="ghost danger" id="clearAll">🗑&nbsp; Clear all chats</button>
+      </div>
+    </aside>
+    <div class="backdrop" id="backdrop"></div>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="icon-btn" id="openSidebar" aria-label="Open sidebar">☰</button>
+        <div class="engine">
+          <div class="seg" id="modeSeg" role="tablist" aria-label="Engine">
+            <button data-mode="local" class="active" title="Run the model on your own GPU (private)">Local</button>
+            <button data-mode="cloud" title="Use the server-side LLM">Cloud</button>
+          </div>
+          <select id="modelSelect" aria-label="Model"></select>
+          <button class="primary small" id="loadBtn">Load</button>
+        </div>
+        <div class="status" id="status"><span class="dot"></span><span id="statusText">Starting…</span></div>
+        <button class="icon-btn" id="exportChat" title="Export chat as Markdown" aria-label="Export chat">⤓</button>
+      </header>
+
+      <div class="progress" id="progress" hidden>
+        <div class="track"><div class="bar" id="progressBar"></div></div>
+        <div class="progress-text" id="progressText"></div>
+      </div>
+
+      <section class="messages" id="messages" aria-live="polite"></section>
+
+      <footer class="composer-wrap">
+        <form class="composer" id="composer">
+          <textarea id="input" rows="1" placeholder="Message Nova…  (Enter to send, Shift+Enter for new line)" autocomplete="off"></textarea>
+          <button type="button" class="stop" id="stopBtn" title="Stop generating (Esc)" hidden>■</button>
+          <button type="submit" class="send" id="sendBtn" title="Send" disabled>↑</button>
+        </form>
+        <div class="hint" id="hint"></div>
+      </footer>
+    </main>
+  </div>
+
+  <dialog id="settingsDlg">
+    <div class="dlg-head"><h2>Settings</h2><button class="icon-btn" id="sClose" aria-label="Close">✕</button></div>
+    <div class="dlg-body">
+      <div class="field"><label for="sSystem">System prompt</label><textarea id="sSystem" rows="5"></textarea></div>
+      <div class="field"><label for="sTemp">Temperature <span id="sTempVal"></span></label><input type="range" id="sTemp" min="0" max="1.5" step="0.05" /></div>
+      <div class="field"><label for="sTopP">Top-p <span id="sTopPVal"></span></label><input type="range" id="sTopP" min="0.1" max="1" step="0.05" /></div>
+      <div class="field"><label for="sMax">Max response tokens</label><input type="number" id="sMax" min="64" max="4096" step="64" /></div>
+    </div>
+    <div class="dlg-foot"><button class="ghost" id="sReset">Reset defaults</button><button class="primary" id="sSave">Save</button></div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

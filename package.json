@@ -1,0 +1,11 @@
+{
+  "name": "nova-chat-llm",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ChatGPT-style web app running real open-source LLMs in the browser via WebGPU (WebLLM), with an optional OpenAI-compatible cloud mode.",
+  "type": "module",
+  "scripts": {
+    "dev": "npx vercel dev",
+    "serve": "npx serve ."
+  }
+}
